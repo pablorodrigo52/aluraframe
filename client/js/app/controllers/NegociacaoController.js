@@ -19,9 +19,8 @@ class NegociacaoController {
         //     this._inputQuantidade,
         //     this._inputValor,
         // ); other way is:
-        let helper = new DateHelper();
-        let data = helper.textoParaData(this.dataValor);
-        let dataAjustada = helper.dataParaTexto(data);
+        let data = DateHelper.textoParaData(this.dataValor);
+        let dataAjustada = DateHelper.dataParaTexto(data);
         let negociacao = new Negociacao(
             data, 
             this.quantidadeValor,

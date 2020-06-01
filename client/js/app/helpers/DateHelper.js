@@ -1,5 +1,10 @@
 class DateHelper{
-    textoParaData(texto){
+
+    constructor () {
+        throw new Error('Try a static acess for methods on this class');
+    }
+
+    static textoParaData(texto){
         // let dataAjustada = new Date(...this.dataValor.split('-')//[SPREAD OPERATOR] desestruturando um array para os parametro que uma função aceita, no exemplo: new Date(YYYY, MM, DD)
         //     /* mas no exemplo do date o mês ele tem o padrão 0 - janeiro, 1 - fevereiro, etc.. 
         //     então precisa diminuir de um o mês somente */    
@@ -8,7 +13,7 @@ class DateHelper{
         return new Date(...texto.split('-').map((item,i) => (i==1)? item - 1 : item));
     }
 
-    dataParaTexto(data){
-        return data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear();
+    static dataParaTexto(data){
+        return `${data.getDate()}/${(data.getMonth()+1)}/${data.getFullYear()}`;
     }
 }
