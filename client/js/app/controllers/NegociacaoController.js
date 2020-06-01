@@ -10,25 +10,21 @@ class NegociacaoController {
         this._inputData = $('#data');
         this._inputValor = $('#valor');
         this._inputQuantidade = $('#quantidade');
+        this._listaNegociacao = new ListaNegociacoes();
 
     }
     adiciona(event){
         event.preventDefault();
-        // let negociacao = new Negociacao(
-        //     new Date(this._inputDate.split('-')), // new Date(['YYYY', 'MM', 'DD']) == 'MM DD YYYY : 00h00m00s
-        //     this._inputQuantidade,
-        //     this._inputValor,
-        // ); other way is:
-        let data = DateHelper.textoParaData(this.dataValor);
-        let dataAjustada = DateHelper.dataParaTexto(data);
-        let negociacao = new Negociacao(
-            data, 
+        this._listaNegociacao.add(this._negociacao());
+        this.resetForm();
+    }
+
+    _negociacao(){
+        return new Negociacao(
+            DateHelper.textoParaData(this.dataValor), 
             this.quantidadeValor,
             this.valorValor
         );
-        this.resetForm();
-        console.log(negociacao);
-        console.log(dataAjustada);
     }
 
     get dataValor(){

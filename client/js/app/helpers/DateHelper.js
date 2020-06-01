@@ -10,6 +10,9 @@ class DateHelper{
         //     então precisa diminuir de um o mês somente */    
         //     .map((item, i) => (i == 1)?item-1 : item)  // em uma arrow function se eu só tenho uma instrução não preciso de {} e 'return'
         // );
+        if (!/\d{4}-\d{2}-\d{2}/.test(texto))
+            throw new Error('The String must be in format yyyy-MM-dd') 
+            
         return new Date(...texto.split('-').map((item,i) => (i==1)? item - 1 : item));
     }
 
