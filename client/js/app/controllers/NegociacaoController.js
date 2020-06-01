@@ -19,18 +19,17 @@ class NegociacaoController {
         //     this._inputQuantidade,
         //     this._inputValor,
         // ); other way is:
-        let dataAjustada = new Date(...this.dataValor.split('-')//[SPREAD OPERATOR] desestruturando um array para os parametro que uma função aceita, no exemplo: new Date(YYYY, MM, DD)
-            /* mas no exemplo do date o mês ele tem o padrão 0 - janeiro, 1 - fevereiro, etc.. 
-            então precisa diminuir de um o mês somente */    
-            .map((item, i) => (i == 1)?item-1 : item)  // em uma arrow function se eu só tenho uma instrução não preciso de {} e 'return'
-        );
+        let helper = new DateHelper();
+        let data = helper.textoParaData(this.dataValor);
+        let dataAjustada = helper.dataParaTexto(data);
         let negociacao = new Negociacao(
-            dataAjustada, 
+            data, 
             this.quantidadeValor,
             this.valorValor
         );
         this.resetForm();
         console.log(negociacao);
+        console.log(dataAjustada);
     }
 
     get dataValor(){
