@@ -1,13 +1,9 @@
-class NegociacoesView{
-    constructor(elemento){
-        this._elemento = elemento;
+class NegociacoesView extends View {
+    constructor(el){
+        super(el); // referencia ao construtor da super class (View)
     }
 
-    update(modelo){
-        this._elemento.innerHTML = this._template(modelo);
-    }
-
-    _template(modelo){
+    template(modelo){
         return `
             <table class="table table-hover table-bordered">
                 <thead>

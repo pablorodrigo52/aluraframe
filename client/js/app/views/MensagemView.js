@@ -1,13 +1,9 @@
-class MensagemView{
-    constructor(elemento){
-        this._elemento = elemento;
+class MensagemView extends View {
+    constructor(el){
+        super(el); // referencia ao construtor da super class (View)
     }
 
-    _template(modelo){
+    template(modelo){
         return modelo.texto ? `<p class="alert alert-info">${modelo.texto}</p>` : `<p></p>`;
-    }
-
-    update(modelo){
-        this._elemento.innerHTML = this._template(modelo);
     }
 }
