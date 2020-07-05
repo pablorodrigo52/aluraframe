@@ -13,7 +13,7 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
 
         this._listaNegociacao = new Proxy(new ListaNegociacoes(), {
-            get: function(target, prop, receiver) {
+            get(target, prop, receiver) {
                 if ( ['add', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function))
                 {
                     return function(){
