@@ -10,7 +10,8 @@ class NegociacaoController {
         this._inputData = $('#data');
         this._inputValor = $('#valor');
         this._inputQuantidade = $('#quantidade');
-        this._listaNegociacao = new ListaNegociacoes();
+
+        //this._listaNegociacao = new ListaNegociacoes(model => this._negociacoesView.update(model));
 
         this._negociacoesView = new NegociacoesView($('#negociacoesView'));
         this._negociacoesView.update(this._listaNegociacao);
@@ -19,10 +20,21 @@ class NegociacaoController {
         this._mensagemView = new MensagemView($('#mensagemView'));
         this._mensagemView.update(this._mensagem);
     }
+    
+    get _dataValor(){
+        return this._inputData.value;
+    }
+    get _quantidadeValor(){
+        return this._inputQuantidade.value;
+    }
+    get _valorValor(){
+        return this._inputValor.value;
+    }
+    
     adiciona(event){
         event.preventDefault();
         this._listaNegociacao.add(this._negociacao());
-        this._negociacoesView.update(this._listaNegociacao);
+        
         this._mensagem.texto = "Mensagem adicionada com sucesso!";
         this._mensagemView.update(this._mensagem);
         this.resetForm();
@@ -30,20 +42,17 @@ class NegociacaoController {
 
     _negociacao(){
         return new Negociacao(
-            DateHelper.textoParaData(this.dataValor), 
-            this.quantidadeValor,
-            this.valorValor
+            DateHelper.textoParaData(this._dataValor), 
+            this._quantidadeValor,
+            this._valorValor
         );
     }
 
-    get dataValor(){
-        return this._inputData.value;
-    }
-    get quantidadeValor(){
-        return this._inputQuantidade.value;
-    }
-    get valorValor(){
-        return this._inputValor.value;
+    apagar(){
+        this._listaNegociacao.esvazia();
+        // this._negociacoesView.update(this._listaNegociacao);
+        this._mensagem.texto = "Negociações apagadas com sucesso.";
+        this._mensagemView.update(this._mensagem);
     }
 
     resetForm(){
