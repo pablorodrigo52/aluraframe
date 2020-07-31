@@ -11,11 +11,19 @@ class NegociacaoController {
         this._inputValor = $('#valor');
         this._inputQuantidade = $('#quantidade');
 
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._listaNegociacao = new Bind(new ListaNegociacoes(), this._negociacoesView, ['add', 'esvazia']);
+        // faço uma associação com proxy factory dentro da classe bind para atualizar a view automaticamente
+        // sem a necessidade de realizar isso na classe controller, deixando assim ela mais enxuta e legível
+        this._listaNegociacao = new Bind( 
+            new ListaNegociacoes(), 
+            new NegociacoesView($('#negociacoesView')), 
+            'add', 'esvazia'
+        );
         
-        this._mensagemView = new MensagemView($('#mensagemView'));
-        this._mensagem = new Bind(new Mensagem(), this._mensagemView, ['texto']); 
+        this._mensagem = new Bind(
+            new Mensagem(), 
+            new MensagemView($('#mensagemView')), 
+            'texto'
+        ); 
     }
     
     get _dataValor(){

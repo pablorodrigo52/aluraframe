@@ -1,5 +1,7 @@
 class Bind{
-    constructor(object, view, props){
+    // ...props é um operador REST (estruturo vários parametros passados em um array)
+    // deve sempre ser o último parametro de uma função.
+    constructor(object, view, ...props){
         let proxy = ProxyFactory.create(
             object,
             props,
