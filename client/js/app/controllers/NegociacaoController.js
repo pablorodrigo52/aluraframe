@@ -1,5 +1,5 @@
 /*
-Um controller é capaz de capturar as informações do DOM
+Um controller é capaz de capturar as informações do DOM manipular e interagir com outras classes.
 */
 
 class NegociacaoController {
