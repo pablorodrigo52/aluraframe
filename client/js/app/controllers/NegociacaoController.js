@@ -5,33 +5,17 @@ Um controller é capaz de capturar as informações do DOM manipular e interagir
 class NegociacaoController {
 
     constructor (){
-        let _self = this;
         let $ = document.querySelector.bind(document); // cria um alias para a função document.querySelector('');
         /* Simulando a sintaxe do jquery */    
         this._inputData = $('#data');
         this._inputValor = $('#valor');
         this._inputQuantidade = $('#quantidade');
 
-        this._listaNegociacao = new Proxy(new ListaNegociacoes(), {
-            get(target, prop, receiver) {
-                if ( ['add', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function))
-                {
-                    return function(){
-                        Reflect.apply(target[prop], target, arguments);
-                        _self._negociacoesView.update(target);
-                    }
-                }
-                return Reflect.get(target, prop, receiver);
-            }
-        });
-        //this._listaNegociacao = new ListaNegociacoes(model => this._negociacoesView.update(model));
-
         this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._negociacoesView.update(this._listaNegociacao);
+        this._listaNegociacao = new Bind(new ListaNegociacoes(), this._negociacoesView, ['add', 'esvazia']);
         
-        this._mensagem = new Mensagem();
         this._mensagemView = new MensagemView($('#mensagemView'));
-        this._mensagemView.update(this._mensagem);
+        this._mensagem = new Bind(new Mensagem(), this._mensagemView, ['texto']); 
     }
     
     get _dataValor(){
@@ -49,7 +33,6 @@ class NegociacaoController {
         this._listaNegociacao.add(this._negociacao());
         
         this._mensagem.texto = "Mensagem adicionada com sucesso!";
-        this._mensagemView.update(this._mensagem);
         this.resetForm();
     }
 
@@ -63,9 +46,7 @@ class NegociacaoController {
 
     apagar(){
         this._listaNegociacao.esvazia();
-        // this._negociacoesView.update(this._listaNegociacao);
         this._mensagem.texto = "Negociações apagadas com sucesso.";
-        this._mensagemView.update(this._mensagem);
     }
 
     resetForm(){
