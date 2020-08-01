@@ -73,14 +73,18 @@ class NegociacaoController {
         xhr.onreadystatechange = () => {
             if (xhr.readyState == 4){
                 if (xhr.status == 200){
-                    
+                    console.log(xhr.responseText);
+                    this._mensagem.texto = "Negociações importadas do servidor com sucesso.";
+                    JSON.parse(xhr.responseText)
+                    .map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor))
+                    .forEach(negociacao => this._listaNegociacao.add(negociacao));
                 } else {
-                    throw new Error('Não foi possível obter as negociações do servidor');
+                    console.log(xhr.responseText);
+                    this._mensagem.texto = 'Não foi possível obter as negociações da semana';
                 }
             }
         };
         xhr.send();
-
         /**
          * Estados possíveis de uma requisição ajax:
          * 0: requisição ainda não iniciada
