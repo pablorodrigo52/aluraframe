@@ -1,6 +1,6 @@
 # Javascript 
 
-## This project implements a _MVC_ (Model, View, Control) model, using *javascript* and ES6 (ECMAScript6);
+## This project implements a _MVC_ (Model, View, Control) model, using *javascript* and ES6 (ECMAScript6) and Proxy and Factory Patterns;
 
 To interact with project access: https://pablorodrigo52.github.io/aluraframe/client. There you can add some **negociations** in a table that have attributes like **dd-MM-yyyy**, **quantity**, **value** or **price** and **volume** (e.g: price * quanity).
 
