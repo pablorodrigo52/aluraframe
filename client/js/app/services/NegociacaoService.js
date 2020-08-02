@@ -7,69 +7,51 @@ class NegociacaoService{
      * 3: processando requisição
      * 4: requisição concluída e a resposta esta pronta
      */
+
+     constructor(){
+         this.http = new HttpService();
+     }
     
     getWeekNegociations(){
         return new Promise((resolve, reject)=>{
-            let xhr = new XMLHttpRequest();
-    
-            xhr.open('GET', 'negociacoes/semana');
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState == 4){
-                    if (xhr.status == 200){
-                        resolve(JSON.parse(xhr.responseText)
-                                .map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor)));
-                    } else {
-                        console.log(xhr.responseText);
-                        reject('Não foi possível obter as negociações da semana.');
-                    }
-                }
-            };
-            xhr.send();           
+            this.http
+                .get('negociacoes/semana')
+                .then(negociacoes => 
+                    resolve(negociacoes.map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor)))
+                )
+                .catch(error =>{
+                    console.log(error);
+                    reject('Não foi possível obter as negociações da semana.');
+                });
         });
     }
 
-
     getPreviousWeekNegociations(){
         return new Promise((resolve, reject)=>{
-            let xhr = new XMLHttpRequest();
-    
-            xhr.open('GET', 'negociacoes/anterior');
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState == 4){
-                    if (xhr.status == 200){
-                        resolve(JSON.parse(xhr.responseText)
-                                .map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor)));
-                    } else {
-                        console.log(xhr.responseText);
-                        reject('Não foi possível obter as negociações da semana passada.');
-                    }
-                }
-            };
-            xhr.send();           
+            this.http
+                .get('negociacoes/anterior')
+                .then(negociacoes => 
+                    resolve(negociacoes.map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor)))
+                )
+                .catch(error =>{
+                    console.log(error);
+                    reject('Não foi possível obter as negociações da semana anterior.');
+                });
         });
     }
 
 
     getPrePreviousWeekNegociations(){
         return new Promise((resolve, reject)=>{
-            let xhr = new XMLHttpRequest();
-    
-            xhr.open('GET', 'negociacoes/retrasada');
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState == 4){
-                    if (xhr.status == 200){
-                        resolve(JSON.parse(xhr.responseText)
-                                .map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor)));
-                    } else {
-                        console.log(xhr.responseText);
-                        reject('Não foi possível obter as negociações da semana retrasada.');
-                    }
-                }
-            };
-            xhr.send();           
+            this.http
+                .get('negociacoes/retrasada')
+                .then(negociacoes => 
+                    resolve(negociacoes.map(element => new Negociacao(new Date(element.data), element.quantidade, element.valor)))
+                )
+                .catch(error =>{
+                    console.log(error);
+                    reject('Não foi possível obter as negociações da semana retrasada.');
+                });
         });
     }
-
-
-
 }
