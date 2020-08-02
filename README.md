@@ -9,6 +9,8 @@ To interact with project access: https://pablorodrigo52.github.io/aluraframe/cli
     - [Models](https://github.com/pablorodrigo52/aluraframe/tree/master/client/js/app/models);
     - [Views](https://github.com/pablorodrigo52/aluraframe/tree/master/client/js/app/views);
     - [Controllers](https://github.com/pablorodrigo52/aluraframe/tree/master/client/js/app/controllers);
+    - [Helpers](https://github.com/pablorodrigo52/aluraframe/tree/master/client/js/app/helpers);
+    - [Services](https://github.com/pablorodrigo52/aluraframe/tree/master/client/js/app/services);
 - Server side:
 
 
