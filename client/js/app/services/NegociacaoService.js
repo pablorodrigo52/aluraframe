@@ -1,4 +1,5 @@
 class NegociacaoService{
+
     /**
      * Estados possíveis de uma requisição ajax:
      * 0: requisição ainda não iniciada
@@ -8,11 +9,26 @@ class NegociacaoService{
      * 4: requisição concluída e a resposta esta pronta
      */
 
-     constructor(){
-         this.http = new HttpService();
-     }
-    
-    getWeekNegociations(){
+
+    constructor(){
+        this.http = new HttpService();
+    }
+
+    getNegociations(listaNegociacao, mensagem){
+        Promise.all([
+            this._getWeekNegociations(),
+            this._getPreviousWeekNegociations(),
+            this._getPrePreviousWeekNegociations()]
+        ).then(negociacoes =>{
+            negociacoes
+                .reduce((flatArray, array) => flatArray.concat(array), [])
+                .forEach(negociacao => listaNegociacao.add(negociacao)); 
+                    mensagem = "Negociações importadas com sucesso";
+        })
+        .catch(error => mensagem = error);
+    }
+
+    _getWeekNegociations(){
         return this.http
             .get('negociacoes/semana')
             .then(negociacoes => 
@@ -24,7 +40,7 @@ class NegociacaoService{
             });
     }
 
-    getPreviousWeekNegociations(){
+    _getPreviousWeekNegociations(){
         return this.http
             .get('negociacoes/anterior')
             .then(negociacoes => 
@@ -37,7 +53,7 @@ class NegociacaoService{
     }
 
 
-    getPrePreviousWeekNegociations(){
+    _getPrePreviousWeekNegociations(){
         return this.http
             .get('negociacoes/retrasada')
             .then(negociacoes => 
